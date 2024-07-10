@@ -3,11 +3,16 @@ import TheWelcome from '../components/TheWelcome.vue'
 import {onMounted, ref} from "vue";
 import axios from "axios";
 
-const people = ref<String>("");
+const people = ref<Person[]>([]);
+
+interface Person {
+  id: number;
+  firstName: string;
+  lastName: string;
+}
 
 onMounted(() => {
-  axios.get("/hello").then(response => {
-    console.log(response.data);
+  axios.get<Person[]>("/hello").then(response => {
     people.value = response.data;
   });
 });
