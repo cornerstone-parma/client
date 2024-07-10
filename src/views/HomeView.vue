@@ -3,19 +3,21 @@ import TheWelcome from '../components/TheWelcome.vue'
 import {onMounted, ref} from "vue";
 import axios from "axios";
 
-const myVar = ref<String>("");
+const people = ref<String>("");
 
 onMounted(() => {
   axios.get("/hello").then(response => {
     console.log(response.data);
-    myVar.value = response.data;
+    people.value = response.data;
   });
 });
 </script>
 
 <template>
   <main>
-    <h1>{{myVar}}!</h1>
     <TheWelcome />
+    <ul>
+      <li v-for="person in people">{{ person.firstName }} {{ person.lastName }}</li>
+    </ul>
   </main>
 </template>
